@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <scenes>
+        <!--Fris Browser View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="FrisBrowserViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jtI-zH-mIX">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                            <activityIndicatorView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="XOP-7L-3a9">
+                                <rect key="frame" x="290" y="290" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="XOP-7L-3a9" secondAttribute="centerX" id="4cP-1A-ste"/>
+                            <constraint firstItem="jtI-zH-mIX" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Leq-Wn-H5E"/>
+                            <constraint firstAttribute="trailing" secondItem="jtI-zH-mIX" secondAttribute="trailing" id="W6B-3o-ab1"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="jtI-zH-mIX" secondAttribute="bottom" id="e2U-SI-8V3"/>
+                            <constraint firstItem="jtI-zH-mIX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="gdU-mQ-EBB"/>
+                            <constraint firstAttribute="centerY" secondItem="XOP-7L-3a9" secondAttribute="centerY" id="n4q-WQ-qwJ"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="Jjd-Hc-uan">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="fOR-52-cG8">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="CUC-Gn-RZE">
+                                <rect key="frame" x="16" y="0.0" width="63" height="22"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="close" image="icon-close.png">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="didPressCloseButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wlv-DG-uhl"/>
+                                </connections>
+                            </button>
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="activityIndicatorView" destination="XOP-7L-3a9" id="XRZ-28-M1a"/>
+                        <outlet property="closeButton" destination="CUC-Gn-RZE" id="U0U-qL-mxZ"/>
+                        <outlet property="webView" destination="jtI-zH-mIX" id="4gu-Rc-HSO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="857" y="130"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="e5Y-c3-bdw">
+            <objects>
+                <navigationController storyboardIdentifier="FrisInAppBrowser" automaticallyAdjustsScrollViewInsets="NO" id="LWJ-Tu-QLI" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="uEY-rm-mS3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="PU5-sM-tHl"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sLJ-ZJ-yws" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="148" y="130"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="icon-close.png" width="20" height="20"/>
+    </resources>
+</document>

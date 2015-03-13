@@ -1,0 +1,15 @@
+{
+    "version": "0.0.1",
+    "name": "nl.frismedia.frisbrowser",
+    "cordova_name": "FrisBrowser",
+    "description": "Cordova Console Plugin",
+    "license": "Apache 2.0",
+    "repo": "https://github.com/SanderSoulwax/CDVFrisInAppBrowser.git",
+    "keywords": [
+        "browser"
+    ],
+    "platforms": [
+        "ios"
+    ],
+    "engines": []
+}
