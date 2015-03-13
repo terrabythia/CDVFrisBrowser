@@ -20,7 +20,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
            id="nl.frismedia.frisbrowser"
-      version="0.0.4">
+      version="0.0.5">
 
     <name>FrisBrowser</name>
     <description>Frismedia Styleable In App Browser Plugin</description>
@@ -29,7 +29,7 @@
     <repo>https://github.com/SanderSoulwax/CDVFrisInAppBrowser.git</repo>
 
     <js-module src="www/FrisBrowser.js" name="FrisBrowser">
-        <clobbers target="cordova.plugins.FrisBrowser" />
+        <clobbers target="FrisBrowser" />
     </js-module>
 
     <!-- ios -->
