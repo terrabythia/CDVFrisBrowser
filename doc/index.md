@@ -24,6 +24,8 @@ The need for this plugin was created when I wanted to style the in app browser t
 
 The plugin is only for iOS at the moment, but Android support will follow soon.
 
+![Sample Screen](https://raw.githubusercontent.com/SanderSoulwax/CDVFrisBrowser/master/doc/screen-iphone5.png)
+
 ## Installation
 
     cordova plugin add nl.frismedia.frisbrowser
