@@ -20,7 +20,7 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
            id="nl.frismedia.frisbrowser"
-      version="0.0.5">
+      version="0.0.6">
 
     <name>FrisBrowser</name>
     <description>Frismedia Styleable In App Browser Plugin</description>

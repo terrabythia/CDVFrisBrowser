@@ -19,11 +19,11 @@ FrisBrowser.open = function(url, options, eventsListeners) {
             // remove event listeners?
             eventsListeners.onClose(url);
         }
-    }, null, "FrisBrowser", "open", [url, options]);
+    }, null, "InAppBrowser", "open", [url, options]);
 };
 
 FrisBrowser.close = function() {
-    cordova.exec(null, null, "FrisBrowser", "close", []);
+    cordova.exec(null, null, "InAppBrowser", "close", []);
 };
 
 module.exports = FrisBrowser;
