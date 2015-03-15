@@ -54,5 +54,5 @@ The plugin is only for iOS at the moment, but Android support will follow soon.
     FrisBrowser.close();
     
 - If you're replacing the buttonImage, make sure that image is added to your xcode-project.
-- Same goes for the font
+- Same goes for the font (see http://iosfonts.com/ for a list of the default fonts and their names)
 - statusBarStyle can be "default" (black text) or "lightContent" (white text)
