@@ -26,4 +26,8 @@ FrisBrowser.close = function() {
     cordova.exec(null, null, "FrisBrowser", "close", []);
 };
 
+FrisBrowser.preloadCloseButtonImage = function(url) {
+    cordova.exec(null, null, "FrisBrowser", "preloadCloseButtonImage", [url]);
+};
+
 module.exports = FrisBrowser;

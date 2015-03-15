@@ -15,6 +15,8 @@
 @property UINavigationController *navigationController;
 @property FrisBrowserViewController *webViewController;
 
+@property UIImage *buttonImage;
+
 @end
 
 @implementation FrisBrowser
@@ -24,6 +26,8 @@ static FrisBrowser *sharedInstance;
 @synthesize navigationController = _navigationController;
 @synthesize webViewController = _webViewController;
 
+@synthesize buttonImage = _buttonImage;
+
 + (instancetype) sharedInstance {
     return sharedInstance;
 }
@@ -32,6 +36,18 @@ static FrisBrowser *sharedInstance;
     if (nil == sharedInstance) {
         sharedInstance = self;
     }
+}
+
+- (UIImage *) imageByURLString:(NSString *)URLString {
+    NSData *imageData = [NSData dataWithContentsOfURL:[NSURL URLWithString:URLString]];
+    return [UIImage imageWithData:imageData];
+}
+
+- (void) preloadCloseButtonImage:(CDVInvokedUrlCommand *)command {
+
+    NSString *imageURL = [command argumentAtIndex:0];
+    self.buttonImage = [self imageByURLString:imageURL];
+
 }
 
 - (void) open:(CDVInvokedUrlCommand *)command {
@@ -46,7 +62,6 @@ static FrisBrowser *sharedInstance;
     UIColor *closeButtonColor = nil;
     NSString *closeButtonTitle = nil;
     NSDictionary *barFont = nil;
-    UIImage *closeButtonImage = nil;
 
     if (nil != options) {
         if (nil != options[@"headerBackgroundColor"]) {
@@ -62,7 +77,24 @@ static FrisBrowser *sharedInstance;
             closeButtonTitle = options[@"buttonTitle"];
         }
         if (nil != options[@"buttonImage"]) {
-            closeButtonImage = [UIImage imageNamed:options[@"buttonImage"]];
+            BOOL hasHTTP = [[options[@"buttonImage"] lowercaseString] hasPrefix:@"http://"];
+            BOOL hasHTTPS = [[options[@"buttonImage"] lowercaseString] hasPrefix:@"https://"];
+            if (hasHTTP || hasHTTPS) {
+                if (nil == self.buttonImage) {
+                    self.buttonImage = [self imageByURLString:options[@"buttonImage"]];
+                }
+            }
+            else {
+                NSString *pathAndFileName = [[NSBundle mainBundle] pathForResource:options[@"buttonImage"] ofType:nil];
+                if ([[NSFileManager defaultManager] fileExistsAtPath:pathAndFileName])
+                {
+                    self.buttonImage = [UIImage imageNamed:options[@"buttonImage"]];
+                }
+                else
+                {
+                    NSLog(@"FrisBrowser: CloseButton Image File (%@) Not Found in Resource Path", options[@"buttonImage"]);
+                }
+            }
         }
     }
 
@@ -79,7 +111,14 @@ static FrisBrowser *sharedInstance;
         }
 
         if (nil != barTintColor && [self.navigationController.navigationBar respondsToSelector:@selector(setBarTintColor:)]) {
-            [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:29.0f / 255.0f green:71.0f / 255.0f blue:77.0f / 255.0f alpha:1.0f]];
+            [self.navigationController.navigationBar setBarTintColor:barTintColor];
+        }
+        else if (nil != barTintColor && [self.navigationController.navigationBar respondsToSelector:@selector(setTintColor:)]) {
+            [self.navigationController.navigationBar setTintColor:barTintColor];
+        }
+        else if (nil != barTintColor && [[UINavigationBar appearance] respondsToSelector:@selector(setBackgroundColor:)]) {
+            [[UINavigationBar appearance] setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+            [[UINavigationBar appearance] setBackgroundColor:barTintColor];
         }
 
         NSMutableDictionary *textAttributes = [NSMutableDictionary dictionary];
@@ -94,7 +133,7 @@ static FrisBrowser *sharedInstance;
             }
             UIColor *fontColor = [UIColor whiteColor];
             if (nil != barFont[@"fontColor"]) {
-                fontColor = [UIColor colorWithRed:[barFont[@"fontColor"][@"r"] floatValue] green:[barFont[@"fontColor"][@"g"] floatValue]  blue:[barFont[@"fontColor"][@"b"] floatValue]  alpha:1.0f];
+                fontColor = [UIColor colorWithRed:[barFont[@"fontColor"][@"r"] floatValue]/255.0f green:[barFont[@"fontColor"][@"g"] floatValue]/255.0f  blue:[barFont[@"fontColor"][@"b"] floatValue]/255.0f  alpha:1.0f];
             }
             textAttributes[NSForegroundColorAttributeName] = fontColor;
             textAttributes[NSFontAttributeName] = [UIFont fontWithName:fontName size:[fontSize floatValue]];
@@ -111,14 +150,14 @@ static FrisBrowser *sharedInstance;
             [self.webViewController.closeButton setTitle:closeButtonTitle forState:UIControlStateNormal];
             [self.webViewController.closeButton sizeToFit];
         }
-        else if (nil == closeButtonTitle && nil != closeButtonImage) {
+        else if (nil == closeButtonTitle && nil != self.buttonImage) {
             [self.webViewController.closeButton setTitle:@"" forState:UIControlStateNormal];
         }
-        if (nil != closeButtonImage) {
+        if (nil != self.buttonImage) {
             if (nil != closeButtonColor) {
                 self.webViewController.closeButton.tintColor = closeButtonColor;
             }
-            [self.webViewController.closeButton setImage:closeButtonImage forState:UIControlStateNormal];
+            [self.webViewController.closeButton setImage:self.buttonImage forState:UIControlStateNormal];
             [self.webViewController.closeButton sizeToFit];
         }
     }

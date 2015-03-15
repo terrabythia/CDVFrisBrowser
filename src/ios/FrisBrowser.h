@@ -16,6 +16,8 @@
 
 + (instancetype)sharedInstance;
 
+- (void)preloadCloseButtonImage:(CDVInvokedUrlCommand *)command;
+
 - (void)open:(CDVInvokedUrlCommand *)command;
 
 - (void)close:(CDVInvokedUrlCommand *)command;
