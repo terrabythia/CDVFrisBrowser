@@ -56,3 +56,12 @@ The plugin is only for iOS at the moment, but Android support will follow soon.
 - If you're replacing the buttonImage, make sure that image is added to your xcode-project.
 - Same goes for the font (see http://iosfonts.com/ for a list of the default fonts and their names)
 - statusBarStyle can be "default" (black text) or "lightContent" (white text)
+ 
+## TODOS
+
+- [x] iOS support
+- [ ] Android support
+- [ ] Retina images (iOS) for close button with external image
+- [ ] Async image download for close button with external image
+- [ ] Button size for close button
+- [ ] Dispatch events (open, close, loadReady, loadError)
